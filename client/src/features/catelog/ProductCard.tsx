@@ -1,4 +1,5 @@
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import { Product } from '../../app/models/product'
 
 interface Props {
@@ -6,6 +7,9 @@ interface Props {
 }
 
 export default function ProductCard ({ product }: Props) {
+
+  const navigate = useNavigate();
+
   return (
     <Card>
       <CardHeader
@@ -22,7 +26,7 @@ export default function ProductCard ({ product }: Props) {
             fontWeight: 'bold',
             color: 'primary.main'
           }
-        }}/>
+        }} />
 
       <CardMedia
         sx={{
@@ -39,12 +43,14 @@ export default function ProductCard ({ product }: Props) {
           ${(product.price / 100).toFixed(2)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-         {product.brand} / {product.type}
+          {product.brand} / {product.type}
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Add to cart</Button>
-        <Button size="small">View</Button>
+        <Button size="small" onClick={() => {
+          navigate(`/catelog/${product.id}`)
+        }}>View</Button>
       </CardActions>
     </Card>
   )

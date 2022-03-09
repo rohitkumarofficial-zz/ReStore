@@ -1,0 +1,8 @@
+.navLink{
+    color: inherit;
+    text-decoration: none;
+}
+
+.active {
+    color: lightgray;
+}
