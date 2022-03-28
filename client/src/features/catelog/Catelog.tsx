@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
+import agent from '../../app/api/agent';
+import LoadingComponent from '../../app/layout/LoadingComponent';
 import { Product } from '../../app/models/product';
 import ProductList from './ProductList';
 
 export default function Catelog () {
   
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
+  
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
-    .then(res => res.json())
-    .then((response) => {
-        setProducts(response)
-    })
+    agent.Catelog.list()
+    .then(products => setProducts(products))
+    .catch(error => console.log(error))
+    .finally(() => setLoading(false))
   }, [])
+
+  if(loading) return <LoadingComponent message='Loading Products...'/>
 
   return (
     <>
